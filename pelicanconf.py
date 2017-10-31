@@ -28,7 +28,7 @@ AUTHOR_FEED_RSS = None
 
 # Social widget
 SOCIAL = (
-    ('twitter', 'http://twitter.com/ivergarakausel'),
+    ('twitter', 'http://twitter.com/ivergarak'),
     ('linkedin', 'https://www.linkedin.com/in/ignaciovergara/'),
     ('github', 'http://github.com/ivergara'),
     ('stackoverflow',
@@ -47,7 +47,7 @@ PLUGINS = ['i18n_subsites', 'ipynb2pelican']
 JINJA_ENVIRONMENT = {'extensions': ['jinja2.ext.i18n']}
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
+# RELATIVE_URLS = True
 
 # Options
 
