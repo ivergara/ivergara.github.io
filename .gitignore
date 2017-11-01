@@ -103,6 +103,7 @@ ENV/
 #extras
 .vscode
 .ipynb_checkpoints
+.idea
 
 #pelican
 output
