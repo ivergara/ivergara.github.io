@@ -34,7 +34,9 @@ STATIC_PATHS = [
 #SITELOGO = 'images/terminal.svg'
 #FAVICON = 'images/favicon.ico'
 
-DISPLAY_ARTICLE_INFO_ON_INDEX = True
+
+SUMMARY_MAX_LENGTH = None
+TYPOGRIFY = True
 
 # Social widget
 SOCIAL = (
