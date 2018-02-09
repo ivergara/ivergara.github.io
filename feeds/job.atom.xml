@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>On data, programming, and technology - job</title><link href="https://ivergara.github.io/" rel="alternate"></link><link href="https://ivergara.github.io/feeds/job.atom.xml" rel="self"></link><id>https://ivergara.github.io/</id><updated>2017-12-30T16:20:00+01:00</updated><entry><title>What I've learned so far - my first six months</title><link href="https://ivergara.github.io/what-ive-learned-so-far-my-first-six-months.html" rel="alternate"></link><published>2017-12-30T16:20:00+01:00</published><updated>2017-12-30T16:20:00+01:00</updated><author><name>Ignacio Vergara Kausel</name></author><id>tag:ivergara.github.io,2017-12-30:/what-ive-learned-so-far-my-first-six-months.html</id><summary type="html">&lt;p&gt;A list of a bunch of stuff that I've learned during my first six months working at Odoscope.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Soon I'll complete my first six months of working as a software developer. Here in Germany, that coincides with the legal trial period. Luckily, the transition from academia to my current job has been extremely smooth, due to a relaxed working atmosphere and particularly due a very scientifically oriented first task. Implementing an evolutionary strategy optimization procedure is something that is very much in the realm of possible Bachelor/Master thesis or a segment of a doctoral work for a physicist.&lt;/p&gt;
-&lt;p&gt;Overall, these first six months have been a good learning experience. Most of what I've had to learn can be categorized as "software engineering', like dealing with logs, reliance, deployment, and testing.&lt;/p&gt;
-&lt;p&gt;I want to take the opportunity to list and comment a bit on the things I've learned, explored, and played with during this time. Implicitly in this list, is the fact that most of it applies in the context of Python since it's the programming language that I know the best... and since part of my job is rather borderline with data science/analytics, having Pandas available has been a very good.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>On data, programming, and technology - job</title><link href="https://ivergara.github.io/" rel="alternate"></link><link href="https://ivergara.github.io/feeds/job.atom.xml" rel="self"></link><id>https://ivergara.github.io/</id><updated>2017-12-30T16:20:00+01:00</updated><entry><title>What I’ve learned so far - my first six months</title><link href="https://ivergara.github.io/what-ive-learned-so-far-my-first-six-months.html" rel="alternate"></link><published>2017-12-30T16:20:00+01:00</published><updated>2017-12-30T16:20:00+01:00</updated><author><name>Ignacio Vergara Kausel</name></author><id>tag:ivergara.github.io,2017-12-30:/what-ive-learned-so-far-my-first-six-months.html</id><summary type="html">&lt;p&gt;A list of a bunch of stuff that I&amp;#8217;ve learned during my first six months working at&amp;nbsp;Odoscope.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Soon I&amp;#8217;ll complete my first six months of working as a software developer. Here in Germany, that coincides with the legal trial period. Luckily, the transition from academia to my current job has been extremely smooth, due to a relaxed working atmosphere and particularly due a very scientifically oriented first task. Implementing an evolutionary strategy optimization procedure is something that is very much in the realm of possible Bachelor/Master thesis or a segment of a doctoral work for a&amp;nbsp;physicist.&lt;/p&gt;
+&lt;p&gt;Overall, these first six months have been a good learning experience. Most of what I&amp;#8217;ve had to learn can be categorized as &amp;#8220;software engineering&amp;#8217;, like dealing with logs, reliance, deployment, and&amp;nbsp;testing.&lt;/p&gt;
+&lt;p&gt;I want to take the opportunity to list and comment a bit on the things I&amp;#8217;ve learned, explored, and played with during this time. Implicitly in this list, is the fact that most of it applies in the context of Python since it&amp;#8217;s the programming language that I know the best&amp;#8230; and since part of my job is rather borderline with data science/analytics, having Pandas available has been a very&amp;nbsp;good.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Cassandra basics&lt;/li&gt;
-&lt;li&gt;Jenkins base pipeline CI&lt;/li&gt;
-&lt;li&gt;HTTP requests, including asynchronous ones&lt;/li&gt;
-&lt;li&gt;Using decorators&lt;/li&gt;
-&lt;li&gt;Do better logging&lt;/li&gt;
-&lt;li&gt;Type and function annotations in Python&lt;/li&gt;
+&lt;li&gt;Cassandra&amp;nbsp;basics&lt;/li&gt;
+&lt;li&gt;Jenkins base pipeline &lt;span class="caps"&gt;CI&lt;/span&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span class="caps"&gt;HTTP&lt;/span&gt; requests, including asynchronous&amp;nbsp;ones&lt;/li&gt;
+&lt;li&gt;Using&amp;nbsp;decorators&lt;/li&gt;
+&lt;li&gt;Do better&amp;nbsp;logging&lt;/li&gt;
+&lt;li&gt;Type and function annotations in&amp;nbsp;Python&lt;/li&gt;
 &lt;li&gt;Build a custom factory for Cassandra that returns a pandas &lt;code&gt;DataFrame&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Some extensive use of &lt;code&gt;pytest&lt;/code&gt; including parametrization, fixtures, mocking&lt;/li&gt;
-&lt;li&gt;Selenium basics as a proof of concept to do end-to-end testing of our dashboard&lt;/li&gt;
-&lt;li&gt;Using Docker&lt;/li&gt;
-&lt;li&gt;Play with binary file formats (&lt;code&gt;arrow&lt;/code&gt;, &lt;code&gt;parquet&lt;/code&gt;) sending them over a network&lt;/li&gt;
+&lt;li&gt;Some extensive use of &lt;code&gt;pytest&lt;/code&gt; including parametrization, fixtures,&amp;nbsp;mocking&lt;/li&gt;
+&lt;li&gt;Selenium basics as a proof of concept to do end-to-end testing of our&amp;nbsp;dashboard&lt;/li&gt;
+&lt;li&gt;Using&amp;nbsp;Docker&lt;/li&gt;
+&lt;li&gt;Play with binary file formats (&lt;code&gt;arrow&lt;/code&gt;, &lt;code&gt;parquet&lt;/code&gt;) sending them over a&amp;nbsp;network&lt;/li&gt;
 &lt;li&gt;Handling config files using &lt;code&gt;ConfigParser&lt;/code&gt;&lt;/li&gt;
-&lt;li&gt;Use click to create a CLI&lt;/li&gt;
+&lt;li&gt;Use click to create a &lt;span class="caps"&gt;CLI&lt;/span&gt;&lt;/li&gt;
 &lt;li&gt;Built a &lt;code&gt;Flask&lt;/code&gt; app&lt;/li&gt;
-&lt;li&gt;Appreciate Pycharm's debugger&lt;/li&gt;
+&lt;li&gt;Appreciate Pycharm&amp;#8217;s&amp;nbsp;debugger&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Most likely I've forgotten some minor things, but this is the bulk of it. In the future, I'll try to write about some noteworthy elements of this list. Particularly the Flask based access to the cassandra database that returns a pandas dataframe as a parquet file, arrow stream, or pretty rendered HTML.&lt;/p&gt;
-&lt;p&gt;Going forwards, I'm highly interested in exploring how to improve testing with the &lt;code&gt;hypothesis&lt;/code&gt; library, but still need to find a good case use for it. Also, want to explore the field of statistical programming using &lt;code&gt;pymc3&lt;/code&gt;. Beyond that, hopefully I'll start doing some stuff in Go soon.&lt;/p&gt;</content></entry></feed>
+&lt;p&gt;Most likely I&amp;#8217;ve forgotten some minor things, but this is the bulk of it. In the future, I&amp;#8217;ll try to write about some noteworthy elements of this list. Particularly the Flask based access to the cassandra database that returns a pandas dataframe as a parquet file, arrow stream, or pretty rendered &lt;span class="caps"&gt;HTML&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Going forwards, I&amp;#8217;m highly interested in exploring how to improve testing with the &lt;code&gt;hypothesis&lt;/code&gt; library, but still need to find a good case use for it. Also, want to explore the field of statistical programming using &lt;code&gt;pymc3&lt;/code&gt;. Beyond that, hopefully I&amp;#8217;ll start doing some stuff in Go&amp;nbsp;soon.&lt;/p&gt;</content></entry></feed>
