@@ -26,6 +26,16 @@ AUTHOR_FEED_RSS = None
 #     ('Jinja2', 'http://jinja.pocoo.org/'),
 # )
 
+STATIC_PATHS = [
+          'images',
+          'extra'
+            ]
+
+#SITELOGO = 'images/terminal.svg'
+#FAVICON = 'images/favicon.ico'
+
+DISPLAY_ARTICLE_INFO_ON_INDEX = True
+
 # Social widget
 SOCIAL = (
     ('twitter', 'http://twitter.com/ivergarak'),
@@ -40,7 +50,7 @@ DEFAULT_PAGINATION = 10
 
 THEME = '/home/ignacio/Documents/pelican-themes/pelican-bootstrap3'
 
-BOOTSTRAP_THEME = 'paper'
+BOOTSTRAP_THEME = 'cosmo'
 
 PLUGIN_PATHS = ['/home/ignacio/Documents/pelican-plugins']
 PLUGINS = ['i18n_subsites', 'ipynb2pelican']
