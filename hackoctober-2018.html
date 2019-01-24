@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<html lang="en">
 <head>
     <title>My “Hacktober” 2018 experience - On data, programming, and technology</title>
     <!-- Using the latest rendering mode for IE -->
@@ -15,15 +15,6 @@
         <meta name="keywords" content="open source" />
         <meta name="description" content="My first experience contributing during Hacktoberfest." />
 
-        <meta property="og:site_name" content="On data, programming, and technology" />
-        <meta property="og:type" content="article"/>
-        <meta property="og:title" content="My “Hacktober” 2018 experience"/>
-        <meta property="og:url" content="https://ivergara.github.io/hackoctober-2018.html"/>
-        <meta property="og:description" content="My first experience contributing during Hacktoberfest."/>
-        <meta property="article:published_time" content="2018-11-06" />
-            <meta property="article:section" content="Open Source, Python" />
-            <meta property="article:tag" content="open source" />
-            <meta property="article:author" content="Ignacio Vergara Kausel" />
 
 
 
@@ -31,23 +22,20 @@
         <link rel="stylesheet" href="https://ivergara.github.io/theme/css/bootstrap.cosmo.min.css" type="text/css"/>
     <link href="https://ivergara.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
 
-    <link href="https://ivergara.github.io/theme/css/pygments/solarizedlight.css" rel="stylesheet">
+    <link href="https://ivergara.github.io/theme/css/pygments/manni.css" rel="stylesheet">
         <link href="https://ivergara.github.io/theme/css/typogrify.css" rel="stylesheet">
     <link rel="stylesheet" href="https://ivergara.github.io/theme/css/style.css" type="text/css"/>
 
         <link href="https://ivergara.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
               title="On data, programming, and technology ATOM Feed"/>
 
-
-
         <link href="https://ivergara.github.io/feeds/open-source-python.atom.xml" type="application/atom+xml" rel="alternate"
               title="On data, programming, and technology Open Source, Python ATOM Feed"/>
-
 </head>
 <body>
 
 <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-	<div class="container">
+    <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
                 <span class="sr-only">Toggle navigation</span>
@@ -70,8 +58,11 @@ On data, programming, and technology            </a>
         <!-- /.navbar-collapse -->
     </div>
 </div> <!-- /.navbar -->
+
 <!-- Banner -->
 <!-- End Banner -->
+
+<!-- Content Container -->
 <div class="container">
     <div class="row">
         <div class="col-sm-9">
@@ -104,13 +95,15 @@ On data, programming, and technology            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>Last year I learned rather late about the hack october activity in the open source world. This year, wasn&#8217;t that different, and I didn&#8217;t manage to plan ahead on how to participate. But this story would be extremely boring if it ended like&nbsp;this.</p>
-<p>By chance, I stumbled upon a little project called <a href="https://github.com/drivendataorg/deon/">deon</a> that generates a checklist of good practices for data based workflows. I&#8217;ll not go into depth about it since <a href="http://deon.drivendata.org/">they</a> do a great job at explaining at large what their objectives&nbsp;are.</p>
-<p><code>deon</code> is little <span class="caps">CLI</span> project in <code>python</code>. And although it is rather simple, in my opinion it is smartly done. Luckily, one of their open <a href="https://github.com/drivendataorg/deon/issues/66">issues</a> was to extract all the logic they had placed into the main <span class="caps">CLI</span> entrypoint command to its own &#8220;core&#8221; function leaving the <span class="caps">CLI</span> as a wrapper around it. Since this project uses <code>click</code> as a <span class="caps">CLI</span> framework and I&#8217;ve been using it to learn how to create and organice nice <span class="caps">CLI</span> applications I thought &#8220;hey, this looks like something that can be done quickly!&#8221;. And indeed it was quick, and the <a href="https://github.com/drivendataorg/deon/pull/73">contribution</a> was merged&nbsp;promptly. </p>
-<p>Since the changes left the test suite a bit badly organized (in my opinion), I did set to change and clean up the test suite. Repurposing the old tests that were dealing with the <span class="caps">CLI</span> directly for the new core, and then creating lightweight <span class="caps">CLI</span> testing function. Fortunately they were using <code>pytest</code> which I realy like and use it exclusively by now in my own work, thus I managed to use some parametrization to reduce lines of code and verbosity.
-The <a href="https://github.com/drivendataorg/deon/pull/74"><span class="caps">PR</span></a> was recently merged to the master branch and I&#8217;m satisfied with the looks of the test suite, even when there is still room for&nbsp;improvement.</p>
-<p>After this success, I kept looking into the open issues. The second one I found that was more on the technical side is related to offer the creation of checklists via a <a href="https://github.com/drivendataorg/deon/issues/33">web application</a>. Someone already had commented showing interest in implementing it, but that was more than a month earlier and there was no movement in his forked repository. Thus, I decided to start tackling it. Once again, using what I&#8217;ve been experimenting with, chose <code>flask</code> to implement a web application with a single endpoint. For now the basic skeleton of <a href="https://github.com/ivergara/deon/pull/1">my suggested solution</a> is more or less complete and further development would need feedback from the project&nbsp;owners/maintainers.</p>
-<p>So, in the end, and without forcing it, I ended contributing a tiny bit into an open source project during October. It does even mark my first contribution in code as previously I&#8217;ve <a href="https://github.com/pandas-dev/pandas/pull/21496">contributed</a> with some cleaning and docummenting of the test suite in <code>pandas</code> (which I hope to continue at some point). Moreover, I did contribute by using directly what what I&#8217;ve been learning since transitioning to being a full time software&nbsp;developer.</p>
+                <p>My Hacktoberfest 2018 Experience
+Last year I learned rather late about the Hackoctoberfest. This year, wasn’t that much different, and I didn’t manage to plan ahead on how to participate. But this story would be extremely boring if it ended like&nbsp;this.</p>
+<p>By the end of the month of October, and by chance, I ended up stumbling upon a little project called deon that generates a good practices checklist for data based experiments. I’ll not go into depth about it since they do a great job at explaining what are their&nbsp;objectives.</p>
+<p>More importantly, deon is small in scope and rather simple, but smartly done. One of their issues was to extract all the logic they had placed into the main <span class="caps">CLI</span> entrypoint to it own “core” function leaving the <span class="caps">CLI</span> as a wrapper around&nbsp;it.</p>
+<p>Since this project uses click as a <span class="caps">CLI</span> framework and I’ve been using it to learn how to create and organize nice <span class="caps">CLI</span> applications I thought “hey, this looks like something that can be done quickly!”. And indeed it was quick, and my contribution was merged&nbsp;promptly.</p>
+<p>Since in my opinion the changes left the test suite a bit badly organized, I did set to change and clean up the test. Repurposing the old tests that were dealing with the <span class="caps">CLI</span> directly for the new core, and then creating lightweight <span class="caps">CLI</span> testing suite, focusing on the <span class="caps">CLI</span> and not on the newly extracted core. Fortunately they were using pytest which I realy like and use it exclusively by now, thus I managed to use some parametrization to reduce lines of code.
+The <span class="caps">PR</span> was merged after some minor details. Personally, I’m satisfied with the looks of the test suite, even when there is still room for&nbsp;improvement.</p>
+<p>After this success, I kept looking into the open issues. The second one I found that was more on the technical side is related to offer the creation of the checklist via a web application. Someone already had commented showing interest in implementing it, but that was more than a month earlier and there was no movement in his forked repository. Thus, I decided to start tackling it. Once again, using what I’ve been experimenting with, chose flask to implement a web application with a single endpoint. For now the basic skeleton of my suggested solution is more or less complete and further development would need feedback from the project owners/maintainers. Unfortunatelly the comment on the issue has not been considered, perhaps I should go ahead and try out a pull request&nbsp;directly.</p>
+<p>So, in the end, and without forcing it, I ended contributing a tiny bit into an open source project during October-November. It does even mark my first contribution in code as previously I’ve contributed with some cleaning and docummenting of the test suite in pandas (which I hope to continue at some point). Moreover, I did contribute by using directly what what I’ve been learning since transitioning to being a full time software developer and what I’ve explored&nbsp;personally.</p>
             </div>
             <!-- /.entry-content -->
     <hr/>
@@ -122,11 +115,11 @@ The <a href="https://github.com/drivendataorg/deon/pull/74"><span class="caps">P
             /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
             var disqus_shortname = 'on-data-programming-and-technology'; // required: replace example with your forum shortname
 
-                    var disqus_identifier = 'hackoctober-2018';
-                var disqus_url = 'https://ivergara.github.io/hackoctober-2018.html';
-
             var disqus_config = function () {
                 this.language = "en";
+
+                        this.page.identifier = '2018-11-06-hackoctober-2018';
+                        this.page.url = 'https://ivergara.github.io/hackoctober-2018.html';
             };
 
             /* * * DON'T EDIT BELOW THIS LINE * * */
@@ -171,6 +164,8 @@ The <a href="https://github.com/drivendataorg/deon/pull/74"><span class="caps">P
         </div>
     </div>
 </div>
+<!-- End Content Container -->
+
 <footer>
    <div class="container">
       <hr>
@@ -178,7 +173,11 @@ The <a href="https://github.com/drivendataorg/deon/pull/74"><span class="caps">P
          <div class="col-xs-10">&copy; 2018 Ignacio Vergara Kausel
             &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
-            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>                <p><small>  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
          <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
       </div>
    </div>
