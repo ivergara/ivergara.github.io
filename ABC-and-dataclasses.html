@@ -82,7 +82,7 @@ On data, programming, and technology            </a>
 <footer class="post-info">
     <span class="label label-default">Date</span>
     <span class="published">
-        <i class="fa fa-calendar"></i><time datetime="2018-11-28T10:20:00+01:00"> Wed 28 November 2018</time>
+        <i class="fa fa-calendar"></i><time datetime="2019-01-28T10:20:00+01:00"> Mon 28 January 2019</time>
     </span>
 
 
@@ -102,7 +102,9 @@ On data, programming, and technology            </a>
     
 </footer><!-- /.post-info -->                    </div>
                 </div>
-                <p>Python is well known for the little boilerplate needed to get something to work. But even Python can get a bit cumbersome when a whole bunch of relatively trivial methods have to be defined to get the desired behavior of a class.
+                <!-- Series:  abc and dataclasses -->
+
+<p>Python is well known for the little boilerplate needed to get something to work. But even Python can get a bit cumbersome when a whole bunch of relatively trivial methods have to be defined to get the desired behavior of a class.
 In this article we&#8217;re going to explore how to combine <a href="https://docs.python.org/3/library/dataclasses.html"><code>dataclases</code></a> with the <a href="https://docs.python.org/3.7/library/abc.html"><code>abc</code></a> and <a href="https://docs.python.org/3.7/library/collections.abc.html"><code>collections.abc</code></a> modules of the standard library in Python. I&#8217;ll assume that you know/understand what <code>abc</code>, <code>collections.abc</code> and <code>dataclases</code>. With the last two one could get a lot of behavior for <strong>free</strong>!</p>
 <p>If you don&#8217;t know about abstract base classes then I strongly recommend to check articles like <a href="http://blog.thedigitalcatonline.com/blog/2016/04/03/abstract-base-classes-in-python/">this</a> and <a href="http://stupidpythonideas.blogspot.com/2015/07/creating-new-sequence-type-is-easy.html">this</a>, for <code>abc</code>, and <code>abc.collections</code>, respectivelly. Likewise, if you don&#8217;t know why <code>dataclasses</code> are interesting and about their advantages, you should check <a href="https://realpython.com/python-data-classes/">this</a> other article. Or if you prefer some more visual guide check <a href="https://www.youtube.com/watch?v=epKegvx_Jws">this</a> talk. Take the time to learn these tools, it&#8217;ll be worth it. Personally, since I discovered the <code>abc</code> and <code>collections.abc</code> modules, I&#8217;ve been trying to use them every time I&nbsp;can. </p>
 <p>When I saw the inclusion of the <code>dataclass</code> module in the standard library of Python 3.7, I told myself I wanted to use it. Being able to reduce even more the boilerplate in Python seemed like a great idea. Of course I could have already been using <a href="https://www.attrs.org/"><code>attrs</code></a> for basically the same effect, but when I tried it it didn&#8217;t feel natural. That was most likely due to a lack of experience on my&nbsp;part.</p>
@@ -213,9 +215,6 @@ This example, by no means shows all the potential of the <code>collections.abc</
 <p>Teaser: there is another thing in Python I enjoy using, the &#8216;@property&#8217; decorator. Personally, I also wonder how that mixes with <code>dataclasses</code>, luckily someone already told their story <a href="https://blog.florimondmanca.com/reconciling-dataclasses-and-properties-in-python">here</a>. Spoiler alert, has a happy ending ;). Although while playing with it I&#8217;ve found some edge cases where things stop working nicely. I hope to explore it in more detail and show some&nbsp;alternative/solution.</p>
             </div>
             <!-- /.entry-content -->
-<section class="well" id="related-posts">
-    <h4>Part 1 of the abc and dataclasses series</h4>
-</section>
     <hr/>
     <section class="comments" id="comments">
         <h2>Comments</h2>
@@ -228,7 +227,7 @@ This example, by no means shows all the potential of the <code>collections.abc</
             var disqus_config = function () {
                 this.language = "en";
 
-                        this.page.identifier = '2018-11-28-ABC-and-dataclasses';
+                        this.page.identifier = '2019-01-28-ABC-and-dataclasses';
                         this.page.url = 'https://ivergara.github.io/ABC-and-dataclasses.html';
             };
 
@@ -268,15 +267,6 @@ This example, by no means shows all the potential of the <code>collections.abc</
   </ul>
 </li>
 <!-- End Sidebar/Social -->
-
-<!-- Sidebar/Series -->
-<li class="list-group-item">
-  <h4><i class="fa fa-tags fa-lg"></i><span class="icon-label">Series</span></h4>
-  <ul class="list-group">
-  </ul>
-</li>
-<!-- End Sidebar/Series -->
-
   </ul>
 </section>
 <!-- End Sidebar -->            </aside>
@@ -289,7 +279,7 @@ This example, by no means shows all the potential of the <code>collections.abc</
    <div class="container">
       <hr>
       <div class="row">
-         <div class="col-xs-10">&copy; 2018 Ignacio Vergara Kausel
+         <div class="col-xs-10">&copy; 2019 Ignacio Vergara Kausel
             &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
             <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
             <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>                <p><small>  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
