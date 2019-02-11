@@ -1,5 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>On data, programming, and technology</title><link href="https://ivergara.github.io/" rel="alternate"></link><link href="https://ivergara.github.io/feeds/all.atom.xml" rel="self"></link><id>https://ivergara.github.io/</id><updated>2019-01-28T10:20:00+01:00</updated><entry><title>Having fun with dataclasses and abstract base classes</title><link href="https://ivergara.github.io/ABC-and-dataclasses.html" rel="alternate"></link><published>2019-01-28T10:20:00+01:00</published><updated>2019-01-28T10:20:00+01:00</updated><author><name>Ignacio Vergara Kausel</name></author><id>tag:ivergara.github.io,2019-01-28:/ABC-and-dataclasses.html</id><summary type="html"></summary><content type="html">&lt;!-- Series:  abc and dataclasses --&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>On data, programming, and technology</title><link href="https://ivergara.github.io/" rel="alternate"></link><link href="https://ivergara.github.io/feeds/all.atom.xml" rel="self"></link><id>https://ivergara.github.io/</id><updated>2019-02-11T11:00:00+01:00</updated><entry><title>Supercharging the shell</title><link href="https://ivergara.github.io/Supercharging-shell.html" rel="alternate"></link><published>2019-02-11T11:00:00+01:00</published><updated>2019-02-11T11:00:00+01:00</updated><author><name>Ignacio Vergara Kausel</name></author><id>tag:ivergara.github.io,2019-02-11:/Supercharging-shell.html</id><summary type="html"></summary><content type="html">&lt;h1&gt;Supercharging the&amp;nbsp;shell&lt;/h1&gt;
+&lt;p&gt;I&amp;#8217;m not a real power user of the command line in Linux, but I tend to use it quite regularly and is my intention to improve on that. My first step to become more proficient and increase its use was to start enhancing shell experience. The first action on this regard was to move from &lt;code&gt;bash&lt;/code&gt; to &lt;code&gt;zsh&lt;/code&gt;. With that change I also started useing &lt;code&gt;oh-my-zsh&lt;/code&gt; to manage some goodies like themes, where I tend to gravitate to use something like &lt;code&gt;agnoster&lt;/code&gt; or &lt;code&gt;powerline9k&lt;/code&gt; with very few&amp;nbsp;customizations.&lt;/p&gt;
+&lt;p&gt;Recently, I&amp;#8217;ve discovered new &amp;#8220;clones&amp;#8221; of old tools: &lt;code&gt;find&lt;/code&gt;, &lt;code&gt;cat&lt;/code&gt;, &lt;code&gt;ls&lt;/code&gt;, and &lt;code&gt;grep&lt;/code&gt;. They tend to be reimagined tools and not a complete simple clone, considering the changes of computing technology and development &amp;#8220;culture&amp;#8221;. From removed &lt;span class="caps"&gt;IO&lt;/span&gt; constrains, to the pervasive &lt;code&gt;.gitignore&lt;/code&gt; file. And most importantly, in my opinion, with sane defaults providing  aready to use tool out of the box. Also, these four tools are available for Linux, Windows, and&amp;nbsp;macOS.&lt;/p&gt;
+&lt;p&gt;For the four commands mentioned before, there is something in common, they&amp;#8217;re implemented in &lt;code&gt;rust&lt;/code&gt;. Personally, I have a strong bias in favor of &lt;code&gt;rust&lt;/code&gt; and I&amp;#8217;d like to learn more of it and eventually become proficient (but that&amp;#8217;s a topic for another&amp;nbsp;time).&lt;/p&gt;
+&lt;h2&gt;Replacements&lt;/h2&gt;
+&lt;p&gt;I want to quickly and succintly review the tools that &lt;em&gt;replace&lt;/em&gt; the ones already&amp;nbsp;mentioned.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/sharkdp/fd"&gt;&lt;code&gt;fd&lt;/code&gt;&lt;/a&gt; replaces &lt;code&gt;find&lt;/code&gt;. This wasn&amp;#8217;t a tool that I really used, because I never managed to understand and learn how to use it. Now, &lt;code&gt;fd&lt;/code&gt; has quite some advantages, for example being faster (in most cases) and easier to use by making &lt;code&gt;find&lt;/code&gt;&lt;span class="quo"&gt;&amp;#8216;&lt;/span&gt;s most common use pattern the default&amp;nbsp;one.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/sharkdp/bat"&gt;&lt;code&gt;bat&lt;/code&gt;&lt;/a&gt; is a rather modest reinterpretation of &lt;code&gt;cat&lt;/code&gt;. It automatically highlights the content of the file given as input, integrates with git, and shows line numbers. Not much to say, but just a nice&amp;nbsp;improvement.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://the.exa.website"&gt;&lt;code&gt;exa&lt;/code&gt;&lt;/a&gt; replaces &lt;code&gt;ls&lt;/code&gt;. In the website they very clearly exaplain how constraing from 1970 don&amp;#8217;t apply anymore and a reimagined tool could be build. Again, saner default like showing human readable file sizes in the long format and has optinal git&amp;nbsp;awareness.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href="https://github.com/BurntSushi/ripgrep"&gt;&lt;code&gt;ripgrep&lt;/code&gt;&lt;/a&gt; is a replacement to &lt;code&gt;grep&lt;/code&gt;. When compared with similar tools in benchmarks it is consistently at the top of the pack. Ignores files based on &lt;code&gt;.gitignore&lt;/code&gt; out of the&amp;nbsp;box.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Fuzzy &amp;#8220;finders&amp;#8221;&amp;nbsp;(filter)&lt;/h2&gt;
+&lt;p&gt;Now, what really can supercharge the command line experience is the use of fuzzy finders. The two I&amp;#8217;ve tried are &lt;a href="https://github.com/junegunn/fzf"&gt;&amp;#8216;fzf&amp;#8217;&lt;/a&gt; and &lt;a href="https://github.com/lotabout/skim"&gt;&amp;#8216;skim&amp;#8217;&lt;/a&gt;. Both feel very similar, but &lt;code&gt;fzf&lt;/code&gt; feels much more mature and works very well right out of the box where the installation already sets useful keybindings (&lt;code&gt;ctrl+R&lt;/code&gt; to search the history, &lt;code&gt;ctrl+T&lt;/code&gt; to recursively search and filter from the current directory). Plus it has &lt;a href="https://github.com/junegunn/fzf#fuzzy-completion-for-bash-and-zsh"&gt;fuzzy completion for the comand line&lt;/a&gt;. Moreover, &lt;code&gt;fzf&lt;/code&gt; provides an extensive &lt;a href="https://github.com/junegunn/fzf/wiki/examples"&gt;library of examples&lt;/a&gt; which can be extremely&amp;nbsp;useful.&lt;/p&gt;
+&lt;p&gt;Here is when the previous set of tools start to shine, since we can combine them. For example, &lt;code&gt;fzf&lt;/code&gt; and &lt;code&gt;skim&lt;/code&gt; can be configured to use &lt;code&gt;fd&lt;/code&gt; to do the finding and then use &lt;code&gt;bat&lt;/code&gt; to do highlighted&amp;nbsp;previews.&lt;/p&gt;
+&lt;h2&gt;Customizations&lt;/h2&gt;
+&lt;p&gt;To finish, I&amp;#8217;ll share how all of this plays out in my &lt;code&gt;.zshrc&lt;/code&gt; file&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# aliases&lt;/span&gt;
+&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;ls&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;exa --group-directories-first&amp;quot;&lt;/span&gt;
+&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;cat&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;bat&amp;quot;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# fzf config&lt;/span&gt;
+&lt;span class="c1"&gt;# Default command to use when input is tty&lt;/span&gt;
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;FZF_DEFAULT_COMMAND&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;fd --type f --color=always&amp;quot;&lt;/span&gt;
+&lt;span class="c1"&gt;# Use ctrl+o to open selected file(s) in VS Code&lt;/span&gt;
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;FZF_DEFAULT_OPTS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;--bind=&amp;#39;ctrl-o:execute(code {})+abort&amp;#39;&amp;quot;&lt;/span&gt;
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;FZF_CTRL_T_COMMAND&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$FZF_DEFAULT_COMMAND&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+&lt;span class="c1"&gt;# Using bat as previewer &lt;/span&gt;
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;FZF_CTRL_T_OPTS&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;--preview-window &amp;#39;right:60%&amp;#39; --preview &amp;#39;bat --color=always --style=header,grid --line-range :300 {}&amp;#39;&amp;quot;&lt;/span&gt;
+&lt;span class="c1"&gt;# Changing from ** to ~~ the trigger for autocompletion in shell&lt;/span&gt;
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;FZF_COMPLETION_TRIGGER&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;~~&amp;#39;&lt;/span&gt;
+
+&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;SKIM_DEFAULT_COMMAND&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;rg --files || fd || find .&amp;quot;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# modified from mitsuhiko dotfiles to use bat as a previewer&lt;/span&gt;
+&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;skvi&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;f(){ x=&amp;quot;$(sk --bind &amp;quot;ctrl-p:toggle-preview&amp;quot; --ansi --preview=&amp;quot;bat {} --color=always&amp;quot; --preview-window=right:60%:hidden)&amp;quot;; [[ $? -eq 0 ]] &amp;amp;&amp;amp; vim &amp;quot;$x&amp;quot; || true }; f&amp;#39;&lt;/span&gt;
+&lt;span class="c1"&gt;# doing the same for VSCode&lt;/span&gt;
+&lt;span class="nb"&gt;alias&lt;/span&gt; &lt;span class="nv"&gt;skvs&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;f(){ x=&amp;quot;$(sk --bind &amp;quot;ctrl-p:toggle-preview&amp;quot; --ansi --preview=&amp;quot;bat {} --color=always&amp;quot; --preview-window=right:60%:hidden)&amp;quot;; [[ $? -eq 0 ]] &amp;amp;&amp;amp; code :w &amp;quot;$x&amp;quot; || true }; f&amp;#39;&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Use fd (https://github.com/sharkdp/fd) instead of the default find&lt;/span&gt;
+&lt;span class="c1"&gt;# command for listing path candidates.&lt;/span&gt;
+_fzf_compgen_path&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  fd --hidden --follow --exclude &lt;span class="s2"&gt;&amp;quot;.git&amp;quot;&lt;/span&gt; . &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$1&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Use fd to generate the list for directory completion&lt;/span&gt;
+_fzf_compgen_dir&lt;span class="o"&gt;()&lt;/span&gt; &lt;span class="o"&gt;{&lt;/span&gt;
+  fd --type d --hidden --follow --exclude &lt;span class="s2"&gt;&amp;quot;.git&amp;quot;&lt;/span&gt; . &lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;&lt;span class="nv"&gt;$1&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;I&amp;#8217;m still experimenting on options and further tweaks, but this provided me already with a nicely working experience. Feel free to get inspired! And there are plenty of other tools out there, try them out and keep&amp;nbsp;improving.&lt;/p&gt;</content><category term="rust"></category><category term="cli"></category><category term="go"></category><category term="fuzzy finder"></category></entry><entry><title>Having fun with dataclasses and abstract base classes</title><link href="https://ivergara.github.io/ABC-and-dataclasses.html" rel="alternate"></link><published>2019-01-28T10:20:00+01:00</published><updated>2019-01-28T10:20:00+01:00</updated><author><name>Ignacio Vergara Kausel</name></author><id>tag:ivergara.github.io,2019-01-28:/ABC-and-dataclasses.html</id><summary type="html"></summary><content type="html">&lt;!-- Series:  abc and dataclasses --&gt;
 
 &lt;p&gt;Python is well known for the little boilerplate needed to get something to work. But even Python can get a bit cumbersome when a whole bunch of relatively trivial methods have to be defined to get the desired behavior of a class.
 In this article we&amp;#8217;re going to explore how to combine &lt;a href="https://docs.python.org/3/library/dataclasses.html"&gt;&lt;code&gt;dataclases&lt;/code&gt;&lt;/a&gt; with the &lt;a href="https://docs.python.org/3.7/library/abc.html"&gt;&lt;code&gt;abc&lt;/code&gt;&lt;/a&gt; and &lt;a href="https://docs.python.org/3.7/library/collections.abc.html"&gt;&lt;code&gt;collections.abc&lt;/code&gt;&lt;/a&gt; modules of the standard library in Python. I&amp;#8217;ll assume that you know/understand what &lt;code&gt;abc&lt;/code&gt;, &lt;code&gt;collections.abc&lt;/code&gt; and &lt;code&gt;dataclases&lt;/code&gt;. With the last two one could get a lot of behavior for &lt;strong&gt;free&lt;/strong&gt;!&lt;/p&gt;
