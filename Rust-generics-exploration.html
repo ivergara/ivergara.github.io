@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Exploring Rust - On data, programming, and technology</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="https://ivergara.github.io/Rust-generics-exploration.html">
+
+        <meta name="author" content="Ignacio Vergara Kausel" />
+        <meta name="keywords" content="rust,generics" />
+
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://ivergara.github.io/theme/css/bootstrap.cosmo.min.css" type="text/css"/>
+    <link href="https://ivergara.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://ivergara.github.io/theme/css/pygments/manni.css" rel="stylesheet">
+        <link href="https://ivergara.github.io/theme/css/typogrify.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://ivergara.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="https://ivergara.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="On data, programming, and technology ATOM Feed"/>
+
+        <link href="https://ivergara.github.io/feeds/rust.atom.xml" type="application/atom+xml" rel="alternate"
+              title="On data, programming, and technology rust, ATOM Feed"/>
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://ivergara.github.io/" class="navbar-brand">
+On data, programming, and technology            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://ivergara.github.io/pages/about-me.html">
+                             about&nbsp;me
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://ivergara.github.io/Rust-generics-exploration.html"
+                       rel="bookmark"
+                       title="Permalink to Exploring Rust">
+                        Exploring&nbsp;Rust
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2019-03-15T11:00:00+01:00"> Fri 15 March 2019</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="https://ivergara.github.io/tag/rust.html">rust</a>
+        /
+	<a href="https://ivergara.github.io/tag/generics.html">generics</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>For a while I&#8217;ve been interested in Rust, reading articles and books, and trying to do some small exercises in it, but in general still rather superficial. Now, after reading the following the <a href="https://www.lpalmieri.com/posts/2019-03-12-scientific-computing-a-rust-adventure-part-1-zero-cost-abstractions/">second part</a> of a series of articles on *Scientific computing in Rust, I decided to use that example to explore a bit more and challenge myself. The article mentions very early the&nbsp;following </p>
+<blockquote>
+<p>But what happens when someone else comes up with a new numerical type with a legitimate concept of addition and multiplication (e.g. complex&nbsp;numbers)?</p>
+</blockquote>
+<p>to motivate exploring generics, but the scenario of complex numbers was not explored. Thus, I wondered how to use the example function used in it, namely <code>generic_scalar_product</code>, with a more complex type., e.g., complex numbers. This means to implement the <code>num_traits::Zero</code> trait into a type implementing a complex number since the function has such trait as type bound for its&nbsp;arguments.</p>
+<h2>Complex&nbsp;number</h2>
+<p>(Un)Fortunately, this case is easy by using the related crate <code>num_complex</code> that indeed implements the <code>Complex</code> type with the needed trait <code>num_traits::Zero</code>. Thus, taking the code from the article and making use of the <code>num_complex</code> crate we get the following (<a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=7e7c7e7e7f84b084f1aceb92b7a8757b">playground</a>)</p>
+<div class="highlight"><pre><span></span><span class="k">extern</span><span class="w"> </span><span class="k">crate</span><span class="w"> </span><span class="n">num_traits</span><span class="p">;</span><span class="w"></span>
+<span class="k">extern</span><span class="w"> </span><span class="k">crate</span><span class="w"> </span><span class="n">num_complex</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">use</span><span class="w"> </span><span class="n">num_complex</span>::<span class="n">Complex64</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">fn</span> <span class="nf">generic_scalar_product</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">v</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="n">T</span><span class="p">],</span><span class="w"> </span><span class="n">w</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="n">T</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nc">T</span><span class="w"></span>
+<span class="k">where</span><span class="w"></span>
+<span class="w">    </span><span class="n">T</span>: <span class="nc">num_traits</span>::<span class="n">Zero</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span>::<span class="n">ops</span>::<span class="n">Mul</span><span class="o">&lt;</span><span class="n">Output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">Copy</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">len</span><span class="p">();</span><span class="w"> </span>
+<span class="w">    </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">len</span><span class="p">());</span><span class="w"> </span>
+
+<span class="w">    </span><span class="c1">// We initialise `sum` to a &quot;zero&quot; of type T</span>
+<span class="w">    </span><span class="c1">// using the `zero` method provided by the `Zero` trait</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span>::<span class="n">zero</span><span class="p">();</span><span class="w"> </span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="p">..</span><span class="n">length</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">w</span><span class="p">[</span><span class="n">index</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">sum</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Complex</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Complex64</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="n">Complex64</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">re</span>: <span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">im</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">Complex64</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">re</span>: <span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">im</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">Complex64</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">re</span>: <span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">im</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">}];</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">w</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">Complex64</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="n">Complex64</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">re</span>: <span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">im</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">Complex64</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">re</span>: <span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">im</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">Complex64</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">re</span>: <span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">im</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">}];</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">generic_scalar_product</span><span class="p">(</span><span class="o">&amp;</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">w</span><span class="p">),</span><span class="w"> </span><span class="n">Complex64</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">re</span>: <span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="n">im</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">});</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>So, this was not much of a challenge&#8230; still a nice excercise/warmup for a beginner (like myself) in Rust to gain some confidence. But then, I was already commited to explore some more. This leads then to the <em>real</em> challenge of how to use this <code>generic_scalar_product</code> with a type of our own making. We could take for example quaternions or some other&nbsp;thing.</p>
+<h2>(Local) Custom&nbsp;type</h2>
+<p>We could take two paths to develop this example:
+<em> Build piece by piece doing <em>pair programming</em> with the rust compiler implementing all needed traits to our new type until we stop having compilation errors.
+</em> Write our type already implementing commonly expected traits like <code>Add</code> and <code>Mul</code> as if it were a &#8220;mature&#8221; piece of code we already have and we want to use with the <code>generic_scalar_product</code> function.</p>
+<p>I&#8217;ll take the second option, and then set out to extend it to make it compatible with <code>generic_scalar_product</code>.</p>
+<p>Our new type will be <code>NAlgebra</code>, which will be implemented as two underlaying <code>f64</code> types. This is to make our task easier by not needing to take care for generics at this point, but it&#8217;d be a good next&nbsp;exercise.</p>
+<div class="highlight"><pre><span></span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">ops</span>::<span class="n">Add</span><span class="p">;</span><span class="w"></span>
+<span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">ops</span>::<span class="n">Mul</span><span class="p">;</span><span class="w"></span>
+
+<span class="cp">#[derive(Debug)]</span><span class="w"> </span><span class="c1">// debug to be allowed to be printed</span>
+<span class="k">struct</span> <span class="nc">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">a</span>: <span class="kt">f64</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">b</span>: <span class="kt">f64</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">fn</span> <span class="nf">new</span><span class="p">(</span><span class="n">x</span>: <span class="kt">f64</span><span class="p">,</span><span class="w"> </span><span class="n">y</span>: <span class="kt">f64</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span>: <span class="nc">x</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>: <span class="nc">y</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Add</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NAlgebra</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">other</span>: <span class="nc">NAlgebra</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">a</span>: <span class="nc">self</span><span class="p">.</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">a</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="n">b</span>: <span class="nc">self</span><span class="p">.</span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">b</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Mul</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Self</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">mul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span>: <span class="nc">Self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Self</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="bp">self</span><span class="p">.</span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">a</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="bp">self</span><span class="p">.</span><span class="n">b</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">b</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">NAlgebra</span>::<span class="n">new</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">NAlgebra</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span>: <span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span>: <span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span>: <span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">}];</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">w</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">NAlgebra</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span>: <span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span>: <span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span>: <span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">}];</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">generic_scalar_product</span><span class="p">(</span><span class="o">&amp;</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">w</span><span class="p">),</span><span class="w"> </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span>: <span class="o">-</span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">});</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>It works, in the extent of our test and for the purposes of our example. Now the interesting part starts. We need to implement the relevant trait for our <code>generic_scalar_product</code> function, namely <code>num_traits::Zero</code>. We can check the documentation of the <a href="https://docs.rs/num-traits/0.2.6/num_traits/identities/trait.Zero.html"><code>Zero</code> trait</a>, and we see the&nbsp;following</p>
+<div class="highlight"><pre><span></span><span class="k">pub</span><span class="w"> </span><span class="k">trait</span><span class="w"> </span><span class="n">Zero</span>: <span class="nb">Sized</span> <span class="o">+</span><span class="w"> </span><span class="n">Add</span><span class="o">&lt;</span><span class="n">Self</span><span class="p">,</span><span class="w"> </span><span class="n">Output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Self</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">fn</span> <span class="nf">zero</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nc">Self</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">fn</span> <span class="nf">is_zero</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>Thus, the methods to be implemented are <code>fn zero() -&gt; Self</code> and <code>fn is_zero(&amp;self) -&gt; bool</code>. This can be easily achieved as follow (for some help/inspiration see <a href="https://docs.rs/num-complex/0.1.40/src/num_complex/lib.rs.html#764-774">the code</a> in <code>num_complex</code> crate for the implementation onto <code>Complex</code>)</p>
+<div class="highlight"><pre><span></span><span class="c1">// implementing the Zero trait for our custom type</span>
+<span class="k">impl</span><span class="w"> </span><span class="n">num_traits</span>::<span class="n">Zero</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">fn</span> <span class="nf">zero</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nc">Self</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">NAlgebra</span>::<span class="n">new</span><span class="p">(</span><span class="n">Zero</span>::<span class="n">zero</span><span class="p">(),</span><span class="w"> </span><span class="n">Zero</span>::<span class="n">zero</span><span class="p">())</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">fn</span> <span class="nf">is_zero</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span> <span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">is_zero</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">is_zero</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>Here we&#8217;re assuming that the fields <code>a</code> and <code>b</code> in <code>NAlgebra</code> are supported by the <code>num_traits</code> crate, which is the case since our underlaying data is <code>f64</code>. Thus, the whole code looks as follows (<a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=13523cd71628685ee333627637005c61">playground</a>)</p>
+<div class="highlight"><pre><span></span><span class="k">extern</span><span class="w"> </span><span class="k">crate</span><span class="w"> </span><span class="n">num_traits</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">use</span><span class="w"> </span><span class="n">num_traits</span>::<span class="n">Zero</span><span class="p">;</span><span class="w">  </span><span class="c1">// importing trait Zero into local scope</span>
+
+<span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">ops</span>::<span class="p">{</span><span class="n">Add</span><span class="p">,</span><span class="n">Mul</span><span class="p">};</span><span class="w"></span>
+
+<span class="cp">#[derive(Debug, PartialEq, Copy, Clone)]</span><span class="w"></span>
+<span class="k">struct</span> <span class="nc">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">a</span>: <span class="kt">f64</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">b</span>: <span class="kt">f64</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Another static method, taking two arguments:</span>
+<span class="w">    </span><span class="k">fn</span> <span class="nf">new</span><span class="p">(</span><span class="n">x</span>: <span class="kt">f64</span><span class="p">,</span><span class="w"> </span><span class="n">y</span>: <span class="kt">f64</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span>: <span class="nc">x</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>: <span class="nc">y</span><span class="w"> </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Add</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NAlgebra</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">add</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">other</span>: <span class="nc">NAlgebra</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">a</span>: <span class="nc">self</span><span class="p">.</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">a</span><span class="p">,</span><span class="w"></span>
+<span class="w">            </span><span class="n">b</span>: <span class="nc">self</span><span class="p">.</span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">other</span><span class="p">.</span><span class="n">b</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Mul</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">type</span> <span class="nc">Output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Self</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">fn</span> <span class="nf">mul</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">rhs</span>: <span class="nc">Self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">Self</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">a</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="kd">let</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">b</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">rhs</span><span class="p">.</span><span class="n">b</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">NAlgebra</span>::<span class="n">new</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">impl</span><span class="w"> </span><span class="n">Zero</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">fn</span> <span class="nf">zero</span><span class="p">()</span><span class="w"> </span>-&gt; <span class="nc">Self</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">NAlgebra</span>::<span class="n">new</span><span class="p">(</span><span class="n">Zero</span>::<span class="n">zero</span><span class="p">(),</span><span class="w"> </span><span class="n">Zero</span>::<span class="n">zero</span><span class="p">())</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">fn</span> <span class="nf">is_zero</span><span class="p">(</span><span class="o">&amp;</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="kt">bool</span> <span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="bp">self</span><span class="p">.</span><span class="n">a</span><span class="p">.</span><span class="n">is_zero</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="bp">self</span><span class="p">.</span><span class="n">b</span><span class="p">.</span><span class="n">is_zero</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">fn</span> <span class="nf">generic_scalar_product</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">v</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="n">T</span><span class="p">],</span><span class="w"> </span><span class="n">w</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="n">T</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nc">T</span><span class="w"></span>
+<span class="k">where</span><span class="w"></span>
+<span class="w">    </span><span class="n">T</span>: <span class="nc">num_traits</span>::<span class="n">Zero</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span>::<span class="n">ops</span>::<span class="n">Mul</span><span class="o">&lt;</span><span class="n">Output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">Copy</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">len</span><span class="p">();</span><span class="w"> </span>
+<span class="w">    </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">length</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">len</span><span class="p">());</span><span class="w"> </span>
+
+<span class="w">    </span><span class="c1">// We initialise `sum` to a &quot;zero&quot; of type T</span>
+<span class="w">    </span><span class="c1">// using the `zero` method provided by the `Zero` trait</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span>::<span class="n">zero</span><span class="p">();</span><span class="w"> </span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="p">..</span><span class="n">length</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">w</span><span class="p">[</span><span class="n">index</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">sum</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// NAlgebra</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">NAlgebra</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span>: <span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span>: <span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span>: <span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">}];</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">w</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">NAlgebra</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span>: <span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span>: <span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">},</span><span class="w"> </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span>: <span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">}];</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">generic_scalar_product</span><span class="p">(</span><span class="o">&amp;</span><span class="n">v</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">w</span><span class="p">),</span><span class="w"> </span><span class="n">NAlgebra</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">a</span>: <span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="n">b</span>: <span class="mf">0.0</span><span class="w"> </span><span class="p">});</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>Besides having to implement the <code>Zero</code> trait onto <code>NAlgebra</code>, the struct had algo to be extended with the <code>Clone+Copy</code> annotations due to the <code>sum = sum + v[index] * w[index];</code> line. This was nicely provided by the compiler, and while I understand why <code>Copy</code> is needed I&#8217;m not sure why <code>Copy</code> and <code>Clone</code> have to be specified. This is something I&#8217;ve encountered before too in other examples and should give some more&nbsp;thought.</p>
+<p>There are quite some more ways to keep working on this little example, to extract more learning nuggets. I&#8217;ll list a few that come to mind:
+1. Generalizing the definition of <code>NAlgebra</code> to support a generic underlaying type would be an interesting next step. 
+2. Taking an external crate like <a href="https://docs.rs/quaternion/0.3.1/quaternion/">quaternion</a> and extending it from outside to be able to be used in <code>generic_scalar_product</code>. 
+3. Improve the structure of this example and put all the <code>NAlgebra</code> stuff in its own module within the same crate.
+4. Use Rust&#8217;s testing capabilities to produce proper testing of <code>NAlgebra</code> and its later added&nbsp;behavior.</p>
+<p>I&#8217;d say that the first two have some overlap, while the last two ones could be tackled&nbsp;together.</p>
+<p>So, go on&#8230; explore and play with these&nbsp;ideas!</p>
+<hr>
+<h2>Bonus</h2>
+<p>At the end of this excursion, there was one thing that kinda bothered me. The return value of <code>generic_scalar_product</code> is <code>T</code>. As an example is fine, and avoids burdening the begginer reader with error handling, but I believe that showing proper error handling early on is extremely important. This means, that the return of that function should be something more like <code>Result&lt;T,Err&gt;</code> with the <code>assert_eq!(length, w.len());</code> replaced with an early return with the error. To make it easy, the error returned will be just a string thus the type will be <code>Result&lt;T,String&gt;</code></p>
+<p>Quickly attending to this last quibble (<a href="https://play.rust-lang.org/?version=stable&amp;mode=debug&amp;edition=2018&amp;gist=bc2d0efa591b0a0edd64bba21267a325">playground</a>)</p>
+<div class="highlight"><pre><span></span><span class="k">extern</span><span class="w"> </span><span class="k">crate</span><span class="w"> </span><span class="n">num_traits</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">fn</span> <span class="nf">generic_scalar_product</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">v</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="n">T</span><span class="p">],</span><span class="w"> </span><span class="n">w</span>: <span class="kp">&amp;</span><span class="p">[</span><span class="n">T</span><span class="p">])</span><span class="w"> </span>-&gt; <span class="nb">Result</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="nb">String</span><span class="o">&gt;</span><span class="w"></span>
+<span class="k">where</span><span class="w"></span>
+<span class="w">    </span><span class="n">T</span>: <span class="nc">num_traits</span>::<span class="n">Zero</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">std</span>::<span class="n">ops</span>::<span class="n">Mul</span><span class="o">&lt;</span><span class="n">Output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span><span class="o">&gt;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">Copy</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">len</span><span class="p">();</span><span class="w"> </span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">length</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">len</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb">Err</span><span class="p">(</span><span class="s">&quot;The vectors have different lengths!&quot;</span><span class="p">.</span><span class="n">to_string</span><span class="p">());</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="c1">// We initialise `sum` to a &quot;zero&quot; of type T</span>
+<span class="w">    </span><span class="c1">// using the `zero` method provided by the `Zero` trait</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">T</span>::<span class="n">zero</span><span class="p">();</span><span class="w"> </span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="p">..</span><span class="n">length</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">v</span><span class="p">[</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">w</span><span class="p">[</span><span class="n">index</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">sum</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Unsigned integers</span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">x</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">u32</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">y</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">u32</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec</span><span class="o">!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="n">assert_eq</span><span class="o">!</span><span class="p">(</span><span class="n">generic_scalar_product</span><span class="p">(</span><span class="o">&amp;</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">y</span><span class="p">).</span><span class="n">unwrap</span><span class="p">(),</span><span class="w"> </span><span class="mi">2</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>And sure, the <code>unwrap()</code> at the end might seem less than ideal, but the <code>main()</code> function is acting as a test suite and we&#8217;re handcrafting the inputs. In this case, to me, it seems completely fine to just unwrap the&nbsp;result.</p>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'on-data-programming-and-technology'; // required: replace example with your forum shortname
+
+            var disqus_config = function () {
+                this.language = "en";
+
+                        this.page.identifier = '2019-03-15-Rust-generics-exploration';
+                        this.page.url = 'https://ivergara.github.io/Rust-generics-exploration.html';
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="http://twitter.com/ivergarak"><i class="fa fa-twitter-square fa-lg"></i> twitter</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/ignaciovergara/"><i class="fa fa-linkedin-square fa-lg"></i> linkedin</a></li>
+    <li class="list-group-item"><a href="http://github.com/ivergara"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+    <li class="list-group-item"><a href="https://stackoverflow.com/users/2244081/ignacio-vergara-kausel"><i class="fa fa-stack-overflow fa-lg"></i> stackoverflow</a></li>
+    <li class="list-group-item"><a href="https://ivergara.github.io/feeds/all.atom.xml"><i class="fa fa-rss-square fa-lg"></i> rss</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2019 Ignacio Vergara Kausel
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>                <p><small>  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://ivergara.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://ivergara.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://ivergara.github.io/theme/js/respond.min.js"></script>
+
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'on-data-programming-and-technology'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-109035444-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+
+</body>
+</html>
