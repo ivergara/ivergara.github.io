@@ -6,9 +6,6 @@ Slug: Supercharging-shell
 Summary: 
 Status: Published
 
-Supercharging the shell
-===
-
 I'm not a real power user of the command line in Linux, but I tend to use it quite regularly and is my intention to improve on that. My first step to become more proficient and increase its use was to start enhancing shell experience. The first action on this regard was to move from `bash` to `zsh`. With that change I also started useing `oh-my-zsh` to manage some goodies like themes, where I tend to gravitate to use something like `agnoster` or `powerline9k` with very few customizations.
 
 Recently, I've discovered new "clones" of old tools: `find`, `cat`, `ls`, and `grep`. They tend to be reimagined tools and not a complete simple clone, considering the changes of computing technology and development "culture". From removed IO constrains, to the pervasive `.gitignore` file. And most importantly, in my opinion, with sane defaults providing  aready to use tool out of the box. Also, these four tools are available for Linux, Windows, and macOS.
