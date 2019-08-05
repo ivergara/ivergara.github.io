@@ -72,3 +72,14 @@ DISPLAY_TAGS_ON_SIDEBAR = True
 IGNORE_FILES = [".ipynb_checkpoints"]
 
 DEFAULT_METADATA = {"status": "draft"}
+
+
+MARKDOWN = {
+    'extension_configs': {
+        'markdown.extensions.codehilite': {'css_class': 'highlight'},
+        'markdown.extensions.extra': {},
+        'markdown.extensions.tables': {},
+        'markdown.extensions.meta': {},
+    },
+    'output_format': 'html5',
+}
