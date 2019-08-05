@@ -136,8 +136,8 @@ On data, programming, and technology            </a>
 <p>So, this was not much of a challenge&#8230; still a nice excercise/warmup for a beginner (like myself) in Rust to gain some confidence. But then, I was already commited to explore some more. This leads then to the <em>real</em> challenge of how to use this <code>generic_scalar_product</code> with a type of our own making. We could take for example quaternions or some other&nbsp;thing.</p>
 <h2>(Local) Custom&nbsp;type</h2>
 <p>We could take two paths to develop this example:
-<em> Build piece by piece doing <em>pair programming</em> with the rust compiler implementing all needed traits to our new type until we stop having compilation errors.
-</em> Write our type already implementing commonly expected traits like <code>Add</code> and <code>Mul</code> as if it were a &#8220;mature&#8221; piece of code we already have and we want to use with the <code>generic_scalar_product</code> function.</p>
+* Build piece by piece doing <em>pair programming</em> with the rust compiler implementing all needed traits to our new type until we stop having compilation errors.
+* Write our type already implementing commonly expected traits like <code>Add</code> and <code>Mul</code> as if it were a &#8220;mature&#8221; piece of code we already have and we want to use with the <code>generic_scalar_product</code> function.</p>
 <p>I&#8217;ll take the second option, and then set out to extend it to make it compatible with <code>generic_scalar_product</code>.</p>
 <p>Our new type will be <code>NAlgebra</code>, which will be implemented as two underlaying <code>f64</code> types. This is to make our task easier by not needing to take care for generics at this point, but it&#8217;d be a good next&nbsp;exercise.</p>
 <div class="highlight"><pre><span></span><span class="k">use</span><span class="w"> </span><span class="n">std</span>::<span class="n">ops</span>::<span class="n">Add</span><span class="p">;</span><span class="w"></span>
