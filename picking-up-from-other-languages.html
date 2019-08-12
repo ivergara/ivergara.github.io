@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Picking up from other languages - On data, programming, and technology</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="https://ivergara.github.io/picking-up-from-other-languages.html">
+
+        <meta name="author" content="Ignacio Vergara Kausel" />
+        <meta name="description" content="Things I’ve learned from other languages in the last few years." />
+
+
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://ivergara.github.io/theme/css/bootstrap.cosmo.min.css" type="text/css"/>
+    <link href="https://ivergara.github.io/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="https://ivergara.github.io/theme/css/pygments/manni.css" rel="stylesheet">
+        <link href="https://ivergara.github.io/theme/css/typogrify.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://ivergara.github.io/theme/css/style.css" type="text/css"/>
+
+        <link href="https://ivergara.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="On data, programming, and technology ATOM Feed"/>
+
+        <link href="https://ivergara.github.io/feeds/python.atom.xml" type="application/atom+xml" rel="alternate"
+              title="On data, programming, and technology python ATOM Feed"/>
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="https://ivergara.github.io/" class="navbar-brand">
+On data, programming, and technology            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="https://ivergara.github.io/pages/about-me.html">
+                             about&nbsp;me
+                          </a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<!-- Banner -->
+<!-- End Banner -->
+
+<!-- Content Container -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="https://ivergara.github.io/picking-up-from-other-languages.html"
+                       rel="bookmark"
+                       title="Permalink to Picking up from other languages">
+                        Picking up from other&nbsp;languages
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2019-08-12T13:20:00+02:00"> Mon 12 August 2019</time>
+    </span>
+
+
+
+
+
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>After many years of doing Python, first as a hobbyist and then in a professional setting, I&#8217;ve had to do some amount of Go programming. Also, I&#8217;ve been trying to explore other languages, primarily Rust, but have been touching some C while following some projects (<a href="http://www.buildyourownlisp.com">[1]</a> and <a href="https://handmadehero.org">[2]</a>).</p>
+<p>There is value in learning from other languages for the sake of itself, one can end up deepening knowledge and getting enlightenment through it. I remember having that feeling while doing some Ruby stuff in a <span class="caps">MOOC</span> years ago. In this article, I want to explore some of the learnings I&#8217;ve had lately. For a comprehensive view on this topic and how it reflects mainly in Python <a href="https://www.curiousefficiency.org/posts/2015/10/languages-to-improve-your-python.html">this article</a> is a great and insightful&nbsp;read.</p>
+<h2>Typing</h2>
+<p>At the beginning of my Go tenure, it was slightly strange to be in the realm of a statically typed language enforced at compile time. Over the years, I had had some experience with compiled languages (Pascal, C, C#, Java), but never in any serious way. However, I quickly started enjoying the clarity that static types can provide, mostly through what the type checking enables in an IDEs like Jetbrain&#8217;s&nbsp;Goland.</p>
+<p>While working with Python alongside Go, I found myself missing the clarity and helping &#8220;hand&#8221; that the static typing offers and enables. I was aware of <code>mypy</code> and the whole effort to add some type annotation into Python, but I was observant on it. This experience with Go drove me to start using <code>mypy</code>. In general, I&#8217;ve found it to be a great tool, and I&#8217;m trying to annotate as much as possible. It was a great help when doing a large scale refactoring/recycling of code, and in other instances, it has helped me to find some latent bugs &#8220;hidden&#8221; in the code. On the other hand, sometimes it can be slightly tricky to annotate arguments and variables accurately. Personally, I haven&#8217;t found the typing system in Python to be wrong or particularly bad as some people in the community have expressed, most likely because the things I&#8217;m doing are rather straightforward and don&#8217;t use really any metaprogramming or abuse the dynamic nature of Python (too&nbsp;much).</p>
+<h2>from Go&nbsp;import</h2>
+<p>Additionally, from Go, I did pick up some of the implicit and explicit conventions of the broader community. The most prominent ones that come to mind being
+- Avoid the use of frivolous <code>else</code> statements (<a href="https://medium.com/@matryer/line-of-sight-in-code-186dd7cdea88">link</a>)
+- Use <code>gofmt</code> to format code as a standard
+- Conditional assignments (<a href="https://www.calhoun.io/one-liner-if-statements-with-errors/">link</a>)</p>
+<p>The first point in the list is rather easy to implement while writing Python code. Although <code>try-except</code> blocks make the implementation of this idea to be slightly more indented. But one can still aim to use such a style pattern when&nbsp;possible.</p>
+<p>For the second point, there are some tools like <code>autopep8</code>, <code>yapf</code>, and <code>black</code>. I personally favor the last one because it is intentionally designed to have very few options that the user can control. You might like or not the decisions, like with <code>gofmt</code>, but it keeps a high degree of consistency across different code bases and liberates you of trying (and failing) to follow a particular style. And I certainly prefer not having to worry and have some uniformity than pleasing my personal sense of code aesthetics. After some months of using <strong>blackened</strong> code, it&#8217;s hard for me to read messily styled&nbsp;code.</p>
+<p>Now, regarding the last one, I&#8217;m waiting for Python 3.8 where the <a href="https://www.python.org/dev/peps/pep-0572/"><em>expression assignment</em></a> operator is being included. A simple example from <span class="caps">PEP</span>-572</p>
+<div class="highlight"><pre><span></span><span class="c1"># Python 3.7</span>
+<span class="n">env_base</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PYTHONUSERBASE&quot;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">env_base</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">env_base</span>
+
+<span class="c1"># Python 3.8</span>
+<span class="k">if</span> <span class="n">env_base</span> <span class="p">:</span><span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PYTHONUSERBASE&quot;</span><span class="p">,</span> <span class="bp">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">env_base</span>
+</pre></div>
+
+
+<p>This one surprised me because it&#8217;s not something I ever thought that I could need, but once I got to use it in Go, then I kept finding places where I&#8217;d have used it in&nbsp;Python. </p>
+<h2>from _&nbsp;import</h2>
+<p>Since this post is not called something like &#8220;taking Go teachings to Python&#8221;, then it is time to introduce another language. As mentioned in the opening of this article, in my reduced spare time, I&#8217;ve been exploring Rust as it seems like a very complementary tool to have. I&#8217;ll not explain why Rust is cool and worthy, but I&#8217;ll mention that it has something extremely interesting that touches the topic of type annotations in&nbsp;Python.</p>
+<p>Rust has a <code>Result&lt;T, Err&gt;</code> and <code>Option&lt;T&gt;</code> <span class="dquo">&#8220;</span>types&#8221; that are used as return &#8220;values&#8221; of functions. They encode different possibilities of returned&nbsp;values. </p>
+<p>In the first case, <code>Result&lt;T, Err&gt;</code>, a composite &#8220;object&#8221; is returned that either holds a value of type T or an error. Somehow, in my opinion, it feels rather similar to what Go 1.X does for error&nbsp;handling.</p>
+<div class="highlight"><pre><span></span><span class="c1">// Go</span>
+<span class="nx">x</span><span class="p">,</span> <span class="nx">err</span> <span class="o">:=</span> <span class="nx">double_number</span><span class="p">(</span><span class="s">&quot;10&quot;</span><span class="p">)</span>
+<span class="k">if</span> <span class="nx">err</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Error: &quot;</span><span class="p">,</span> <span class="nx">err</span><span class="p">)</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">fmt</span><span class="p">.</span><span class="nx">Println</span><span class="p">(</span><span class="s">&quot;Doubled number: &quot;</span><span class="p">,</span> <span class="nx">x</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<div class="highlight"><pre><span></span><span class="c1">// Rust</span>
+<span class="k">match</span><span class="w"> </span><span class="n">double_number</span><span class="p">(</span><span class="s">&quot;10&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nb">Ok</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;Doubled number: {:?}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="nb">Err</span><span class="p">(</span><span class="n">err</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;Error: {:?}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">err</span><span class="p">),</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>This doesn&#8217;t have a direct equivalent in Python since it has <code>exceptions</code> instead of error values/types, but one could certainly make a similar pattern than the one in Go by catching exceptions and returning some value&nbsp;instead.</p>
+<p>The second, <code>Option&lt;T&gt;</code>, encodes a value of type T or something akin to <code>None</code> in Python. Taking the example from the <a href="https://doc.rust-lang.org/std/option/">documentation</a> (<a href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn%20main()%20%7B%0Afn%20divide(numerator%3A%20f64%2C%20denominator%3A%20f64)%20-%3E%20Option%3Cf64%3E%20%7B%0A%20%20%20%20if%20denominator%20%3D%3D%200.0%20%7B%0A%20%20%20%20%20%20%20%20None%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20Some(numerator%20%2F%20denominator)%0A%20%20%20%20%7D%0A%7D%0A%0A%2F%2F%20The%20return%20value%20of%20the%20function%20is%20an%20option%0Alet%20result%20%3D%20divide(2.0%2C%203.0)%3B%0A%0A%2F%2F%20Pattern%20match%20to%20retrieve%20the%20value%0Amatch%20result%20%7B%0A%20%20%20%20%2F%2F%20The%20division%20was%20valid%0A%20%20%20%20Some(x)%20%3D%3E%20println!(%22Result%3A%20%7B%7D%22%2C%20x)%2C%0A%20%20%20%20%2F%2F%20The%20division%20was%20invalid%0A%20%20%20%20None%20%20%20%20%3D%3E%20println!(%22Cannot%20divide%20by%200%22)%2C%0A%7D%0A%7D">playground</a>)</p>
+<div class="highlight"><pre><span></span><span class="k">fn</span> <span class="nf">divide</span><span class="p">(</span><span class="n">numerator</span>: <span class="kt">f64</span><span class="p">,</span><span class="w"> </span><span class="n">denominator</span>: <span class="kt">f64</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nb">Option</span><span class="o">&lt;</span><span class="kt">f64</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">denominator</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mf">0.0</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nb">None</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="nb">Some</span><span class="p">(</span><span class="n">numerator</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">denominator</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="c1">// The return value of the function is an option</span>
+<span class="kd">let</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">divide</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">);</span><span class="w"></span>
+
+<span class="c1">// Pattern match to retrieve the value</span>
+<span class="k">match</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// The division was valid</span>
+<span class="w">    </span><span class="nb">Some</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;Result: {}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// The division was invalid</span>
+<span class="w">    </span><span class="nb">None</span><span class="w">    </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">println</span><span class="o">!</span><span class="p">(</span><span class="s">&quot;Cannot divide by 0&quot;</span><span class="p">),</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+
+
+<p>After studying Rust a bit, I started to use the <code>Optional</code> type annotation in Python more often to explicitly signal that a function/method returns a value or <code>None</code>. Certainly returning or receiving a <code>None</code> in Python is something rather frequent, but formalizing it in a type makes it very explicit and clear. Taking the previous Rust example ported to Python, it&#8217;d look like the&nbsp;following</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+
+<span class="k">def</span> <span class="nf">divide</span><span class="p">(</span><span class="n">numerator</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">denominator</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]:</span>
+    <span class="k">if</span> <span class="n">denominator</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">None</span>
+    <span class="k">return</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">divide</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Result: {result}&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Cannot divide by 0.&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Probably not the best example, but it shows how to apply this same pattern in a properly annotated form. Annotating and then running mypy will force you to cover your bases, thus reducing some silly bugs in the&nbsp;code.</p>
+<p>Quite interestingly, I found <a href="https://sobolevn.me/2019/02/python-exceptions-considered-an-antipattern">this</a> post showing some sort of implementation of these two ideas in Python. It&#8217;s worthy of checking it out, a very interesting experiment! I hope to try it out at some&nbsp;point.</p>
+<p>Furthermore, the <code>Optional</code> type can also be used for argument annotations for arguments that might have a particular value of a type or <code>None</code>, as it could be when they have <code>None</code> as a&nbsp;default.</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
+
+<span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>  <span class="c1"># declare n to be int</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">,</span> <span class="n">b</span>
+    <span class="k">return</span> <span class="n">a</span>
+
+<span class="k">def</span> <span class="nf">cal</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+</pre></div>
+
+
+<p>If mypy is run over this code, it&#8217;ll complain at the <code>print(fib(n))</code> line saying <code>Argument 1 to "fib" has incompatible type "Optional[int]"; expected "int"</code>. It&#8217;s clear, at that point <code>n</code> could be some integer or <code>None</code>. This forces us to assure that <code>n</code> is actually a number beforehand and thus avoiding some ill-defined call and a highly likely runtime error. Thus, the annotation error in the previous code is fixed by modifying in a verbose mode the <code>cal</code> function as&nbsp;follows</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cal</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">n</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">fib</span><span class="p">(</span><span class="n">n</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;No number provided!&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>In my opinion, <code>mypy</code> has been a great tool when working on a moderately sized project. Others of the like of Dropbox and Instagram have found it invaluable in their efforts to move from Python 2 to Python&nbsp;3.</p>
+<h2>Closing&nbsp;remarks</h2>
+<p>Go and explore other languages! It will most likely provide great insight into your preferred language and your own programming style. There is no need to be an expert, but already, the challenge of understanding a new language provides plenty of&nbsp;teachings.</p>
+<p>And regarding Python itself, use <code>black</code> and annotate code, particularly the code that gets into production and is being produced by a&nbsp;team.</p>
+            </div>
+            <!-- /.entry-content -->
+    <hr/>
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'on-data-programming-and-technology'; // required: replace example with your forum shortname
+
+            var disqus_config = function () {
+                this.language = "en";
+
+                        this.page.identifier = '2019-08-12-picking-up-from-other-languages';
+                        this.page.url = 'https://ivergara.github.io/picking-up-from-other-languages.html';
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+<!-- Sidebar -->
+<section class="well well-sm">
+  <ul class="list-group list-group-flush">
+
+<!-- Sidebar/Social -->
+<li class="list-group-item">
+  <h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+  <ul class="list-group" id="social">
+    <li class="list-group-item"><a href="http://twitter.com/ivergarak"><i class="fa fa-twitter-square fa-lg"></i> twitter</a></li>
+    <li class="list-group-item"><a href="https://www.linkedin.com/in/ignaciovergara/"><i class="fa fa-linkedin-square fa-lg"></i> linkedin</a></li>
+    <li class="list-group-item"><a href="http://github.com/ivergara"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+    <li class="list-group-item"><a href="https://stackoverflow.com/users/2244081/ignacio-vergara-kausel"><i class="fa fa-stack-overflow fa-lg"></i> stackoverflow</a></li>
+    <li class="list-group-item"><a href="https://ivergara.github.io/feeds/all.atom.xml"><i class="fa fa-rss-square fa-lg"></i> rss</a></li>
+  </ul>
+</li>
+<!-- End Sidebar/Social -->
+  </ul>
+</section>
+<!-- End Sidebar -->            </aside>
+        </div>
+    </div>
+</div>
+<!-- End Content Container -->
+
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2019 Ignacio Vergara Kausel
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>                <p><small>  <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en"><img alt="Creative Commons License" style="border-width:0" src="//i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a>
+    Content
+  licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>, except where indicated otherwise.
+</small></p>
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="https://ivergara.github.io/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="https://ivergara.github.io/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="https://ivergara.github.io/theme/js/respond.min.js"></script>
+
+
+    <!-- Disqus -->
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'on-data-programming-and-technology'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function () {
+            var s = document.createElement('script');
+            s.async = true;
+            s.type = 'text/javascript';
+            s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+            (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+        }());
+    </script>
+    <!-- End Disqus Code -->
+    <!-- Google Analytics -->
+    <script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-109035444-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script');
+            ga.type = 'text/javascript';
+            ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    <!-- End Google Analytics Code -->
+
+
+</body>
+</html>

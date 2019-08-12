@@ -1,5 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>On data, programming, and technology</title><link href="https://ivergara.github.io/" rel="alternate"></link><link href="https://ivergara.github.io/feeds/all.atom.xml" rel="self"></link><id>https://ivergara.github.io/</id><updated>2019-08-05T12:20:00+02:00</updated><entry><title>Deeper into dataclasses</title><link href="https://ivergara.github.io/deeper-dataclasses.html" rel="alternate"></link><published>2019-08-05T12:20:00+02:00</published><updated>2019-08-05T12:20:00+02:00</updated><author><name>Ignacio Vergara Kausel</name></author><id>tag:ivergara.github.io,2019-08-05:/deeper-dataclasses.html</id><summary type="html">&lt;p&gt;Most articles cover the basics of &lt;code&gt;dataclasses&lt;/code&gt;, this is an attempt to cover some more advanced features of this&amp;nbsp;module.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Usually, examples using the &lt;code&gt;dataclasses&lt;/code&gt; module in Python are rather simple in the use of its features. That by itself is completely fine, but sometimes the implementation can be very tedious and cumbersome. However, the &lt;code&gt;dataclasses&lt;/code&gt; module offers ways to be smarter, which are rarely talked about. With this article, I want to change that. Thus, this article doesn&amp;#8217;t cover topics like when and how to use them. There is plenty of material on the Internet to learn about&amp;nbsp;that.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>On data, programming, and technology</title><link href="https://ivergara.github.io/" rel="alternate"></link><link href="https://ivergara.github.io/feeds/all.atom.xml" rel="self"></link><id>https://ivergara.github.io/</id><updated>2019-08-12T13:20:00+02:00</updated><entry><title>Picking up from other languages</title><link href="https://ivergara.github.io/picking-up-from-other-languages.html" rel="alternate"></link><published>2019-08-12T13:20:00+02:00</published><updated>2019-08-12T13:20:00+02:00</updated><author><name>Ignacio Vergara Kausel</name></author><id>tag:ivergara.github.io,2019-08-12:/picking-up-from-other-languages.html</id><summary type="html">&lt;p&gt;Things I&amp;#8217;ve learned from other languages in the last few&amp;nbsp;years.&lt;/p&gt;</summary><content type="html">&lt;p&gt;After many years of doing Python, first as a hobbyist and then in a professional setting, I&amp;#8217;ve had to do some amount of Go programming. Also, I&amp;#8217;ve been trying to explore other languages, primarily Rust, but have been touching some C while following some projects (&lt;a href="http://www.buildyourownlisp.com"&gt;[1]&lt;/a&gt; and &lt;a href="https://handmadehero.org"&gt;[2]&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;There is value in learning from other languages for the sake of itself, one can end up deepening knowledge and getting enlightenment through it. I remember having that feeling while doing some Ruby stuff in a &lt;span class="caps"&gt;MOOC&lt;/span&gt; years ago. In this article, I want to explore some of the learnings I&amp;#8217;ve had lately. For a comprehensive view on this topic and how it reflects mainly in Python &lt;a href="https://www.curiousefficiency.org/posts/2015/10/languages-to-improve-your-python.html"&gt;this article&lt;/a&gt; is a great and insightful&amp;nbsp;read.&lt;/p&gt;
+&lt;h2&gt;Typing&lt;/h2&gt;
+&lt;p&gt;At the beginning of my Go tenure, it was slightly strange to be in the realm of a statically typed language enforced at compile time. Over the years, I had had some experience with compiled languages (Pascal, C, C#, Java), but never in any serious way. However, I quickly started enjoying the clarity that static types can provide, mostly through what the type checking enables in an IDEs like Jetbrain&amp;#8217;s&amp;nbsp;Goland.&lt;/p&gt;
+&lt;p&gt;While working with Python alongside Go, I found myself missing the clarity and helping &amp;#8220;hand&amp;#8221; that the static typing offers and enables. I was aware of &lt;code&gt;mypy&lt;/code&gt; and the whole effort to add some type annotation into Python, but I was observant on it. This experience with Go drove me to start using &lt;code&gt;mypy&lt;/code&gt;. In general, I&amp;#8217;ve found it to be a great tool, and I&amp;#8217;m trying to annotate as much as possible. It was a great help when doing a large scale refactoring/recycling of code, and in other instances, it has helped me to find some latent bugs &amp;#8220;hidden&amp;#8221; in the code. On the other hand, sometimes it can be slightly tricky to annotate arguments and variables accurately. Personally, I haven&amp;#8217;t found the typing system in Python to be wrong or particularly bad as some people in the community have expressed, most likely because the things I&amp;#8217;m doing are rather straightforward and don&amp;#8217;t use really any metaprogramming or abuse the dynamic nature of Python (too&amp;nbsp;much).&lt;/p&gt;
+&lt;h2&gt;from Go&amp;nbsp;import&lt;/h2&gt;
+&lt;p&gt;Additionally, from Go, I did pick up some of the implicit and explicit conventions of the broader community. The most prominent ones that come to mind being
+- Avoid the use of frivolous &lt;code&gt;else&lt;/code&gt; statements (&lt;a href="https://medium.com/@matryer/line-of-sight-in-code-186dd7cdea88"&gt;link&lt;/a&gt;)
+- Use &lt;code&gt;gofmt&lt;/code&gt; to format code as a standard
+- Conditional assignments (&lt;a href="https://www.calhoun.io/one-liner-if-statements-with-errors/"&gt;link&lt;/a&gt;)&lt;/p&gt;
+&lt;p&gt;The first point in the list is rather easy to implement while writing Python code. Although &lt;code&gt;try-except&lt;/code&gt; blocks make the implementation of this idea to be slightly more indented. But one can still aim to use such a style pattern when&amp;nbsp;possible.&lt;/p&gt;
+&lt;p&gt;For the second point, there are some tools like &lt;code&gt;autopep8&lt;/code&gt;, &lt;code&gt;yapf&lt;/code&gt;, and &lt;code&gt;black&lt;/code&gt;. I personally favor the last one because it is intentionally designed to have very few options that the user can control. You might like or not the decisions, like with &lt;code&gt;gofmt&lt;/code&gt;, but it keeps a high degree of consistency across different code bases and liberates you of trying (and failing) to follow a particular style. And I certainly prefer not having to worry and have some uniformity than pleasing my personal sense of code aesthetics. After some months of using &lt;strong&gt;blackened&lt;/strong&gt; code, it&amp;#8217;s hard for me to read messily styled&amp;nbsp;code.&lt;/p&gt;
+&lt;p&gt;Now, regarding the last one, I&amp;#8217;m waiting for Python 3.8 where the &lt;a href="https://www.python.org/dev/peps/pep-0572/"&gt;&lt;em&gt;expression assignment&lt;/em&gt;&lt;/a&gt; operator is being included. A simple example from &lt;span class="caps"&gt;PEP&lt;/span&gt;-572&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Python 3.7&lt;/span&gt;
+&lt;span class="n"&gt;env_base&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;PYTHONUSERBASE&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;env_base&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;env_base&lt;/span&gt;
+
+&lt;span class="c1"&gt;# Python 3.8&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;env_base&lt;/span&gt; &lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;environ&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;PYTHONUSERBASE&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;env_base&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This one surprised me because it&amp;#8217;s not something I ever thought that I could need, but once I got to use it in Go, then I kept finding places where I&amp;#8217;d have used it in&amp;nbsp;Python. &lt;/p&gt;
+&lt;h2&gt;from _&amp;nbsp;import&lt;/h2&gt;
+&lt;p&gt;Since this post is not called something like &amp;#8220;taking Go teachings to Python&amp;#8221;, then it is time to introduce another language. As mentioned in the opening of this article, in my reduced spare time, I&amp;#8217;ve been exploring Rust as it seems like a very complementary tool to have. I&amp;#8217;ll not explain why Rust is cool and worthy, but I&amp;#8217;ll mention that it has something extremely interesting that touches the topic of type annotations in&amp;nbsp;Python.&lt;/p&gt;
+&lt;p&gt;Rust has a &lt;code&gt;Result&amp;lt;T, Err&amp;gt;&lt;/code&gt; and &lt;code&gt;Option&amp;lt;T&amp;gt;&lt;/code&gt; &lt;span class="dquo"&gt;&amp;#8220;&lt;/span&gt;types&amp;#8221; that are used as return &amp;#8220;values&amp;#8221; of functions. They encode different possibilities of returned&amp;nbsp;values. &lt;/p&gt;
+&lt;p&gt;In the first case, &lt;code&gt;Result&amp;lt;T, Err&amp;gt;&lt;/code&gt;, a composite &amp;#8220;object&amp;#8221; is returned that either holds a value of type T or an error. Somehow, in my opinion, it feels rather similar to what Go 1.X does for error&amp;nbsp;handling.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;// Go&lt;/span&gt;
+&lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;err&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="nx"&gt;double_number&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;10&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nx"&gt;err&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Error: &amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;err&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;fmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Println&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Doubled number: &amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;// Rust&lt;/span&gt;
+&lt;span class="k"&gt;match&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;double_number&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;10&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;Ok&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;println&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Doubled number: {:?}&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;Err&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;err&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;println&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Error: {:?}&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;err&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This doesn&amp;#8217;t have a direct equivalent in Python since it has &lt;code&gt;exceptions&lt;/code&gt; instead of error values/types, but one could certainly make a similar pattern than the one in Go by catching exceptions and returning some value&amp;nbsp;instead.&lt;/p&gt;
+&lt;p&gt;The second, &lt;code&gt;Option&amp;lt;T&amp;gt;&lt;/code&gt;, encodes a value of type T or something akin to &lt;code&gt;None&lt;/code&gt; in Python. Taking the example from the &lt;a href="https://doc.rust-lang.org/std/option/"&gt;documentation&lt;/a&gt; (&lt;a href="https://play.rust-lang.org/?code=%23!%5Ballow(unused)%5D%0Afn%20main()%20%7B%0Afn%20divide(numerator%3A%20f64%2C%20denominator%3A%20f64)%20-%3E%20Option%3Cf64%3E%20%7B%0A%20%20%20%20if%20denominator%20%3D%3D%200.0%20%7B%0A%20%20%20%20%20%20%20%20None%0A%20%20%20%20%7D%20else%20%7B%0A%20%20%20%20%20%20%20%20Some(numerator%20%2F%20denominator)%0A%20%20%20%20%7D%0A%7D%0A%0A%2F%2F%20The%20return%20value%20of%20the%20function%20is%20an%20option%0Alet%20result%20%3D%20divide(2.0%2C%203.0)%3B%0A%0A%2F%2F%20Pattern%20match%20to%20retrieve%20the%20value%0Amatch%20result%20%7B%0A%20%20%20%20%2F%2F%20The%20division%20was%20valid%0A%20%20%20%20Some(x)%20%3D%3E%20println!(%22Result%3A%20%7B%7D%22%2C%20x)%2C%0A%20%20%20%20%2F%2F%20The%20division%20was%20invalid%0A%20%20%20%20None%20%20%20%20%3D%3E%20println!(%22Cannot%20divide%20by%200%22)%2C%0A%7D%0A%7D"&gt;playground&lt;/a&gt;)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;fn&lt;/span&gt; &lt;span class="nf"&gt;divide&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;numerator&lt;/span&gt;: &lt;span class="kt"&gt;f64&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;denominator&lt;/span&gt;: &lt;span class="kt"&gt;f64&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;-&amp;gt; &lt;span class="nb"&gt;Option&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="kt"&gt;f64&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;denominator&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;0.0&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="nb"&gt;None&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;        &lt;/span&gt;&lt;span class="nb"&gt;Some&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;numerator&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;denominator&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="c1"&gt;// The return value of the function is an option&lt;/span&gt;
+&lt;span class="kd"&gt;let&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;divide&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;2.0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="mf"&gt;3.0&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+
+&lt;span class="c1"&gt;// Pattern match to retrieve the value&lt;/span&gt;
+&lt;span class="k"&gt;match&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// The division was valid&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;Some&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;println&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Result: {}&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="c1"&gt;// The division was invalid&lt;/span&gt;
+&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="nb"&gt;None&lt;/span&gt;&lt;span class="w"&gt;    &lt;/span&gt;&lt;span class="o"&gt;=&amp;gt;&lt;/span&gt;&lt;span class="w"&gt; &lt;/span&gt;&lt;span class="n"&gt;println&lt;/span&gt;&lt;span class="o"&gt;!&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;Cannot divide by 0&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="w"&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;After studying Rust a bit, I started to use the &lt;code&gt;Optional&lt;/code&gt; type annotation in Python more often to explicitly signal that a function/method returns a value or &lt;code&gt;None&lt;/code&gt;. Certainly returning or receiving a &lt;code&gt;None&lt;/code&gt; in Python is something rather frequent, but formalizing it in a type makes it very explicit and clear. Taking the previous Rust example ported to Python, it&amp;#8217;d look like the&amp;nbsp;following&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;typing&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Optional&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;divide&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;numerator&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;float&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;denominator&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;float&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;Optional&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;float&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;denominator&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mf"&gt;0.0&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;numerator&lt;/span&gt; &lt;span class="o"&gt;/&lt;/span&gt; &lt;span class="n"&gt;denominator&lt;/span&gt;
+
+&lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;divide&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;2.0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;3.0&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Result: {result}&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;Cannot divide by 0.&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Probably not the best example, but it shows how to apply this same pattern in a properly annotated form. Annotating and then running mypy will force you to cover your bases, thus reducing some silly bugs in the&amp;nbsp;code.&lt;/p&gt;
+&lt;p&gt;Quite interestingly, I found &lt;a href="https://sobolevn.me/2019/02/python-exceptions-considered-an-antipattern"&gt;this&lt;/a&gt; post showing some sort of implementation of these two ideas in Python. It&amp;#8217;s worthy of checking it out, a very interesting experiment! I hope to try it out at some&amp;nbsp;point.&lt;/p&gt;
+&lt;p&gt;Furthermore, the &lt;code&gt;Optional&lt;/code&gt; type can also be used for argument annotations for arguments that might have a particular value of a type or &lt;code&gt;None&lt;/code&gt;, as it could be when they have &lt;code&gt;None&lt;/code&gt; as a&amp;nbsp;default.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;typing&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Optional&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;fib&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;  &lt;span class="c1"&gt;# declare n to be int&lt;/span&gt;
+    &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;_&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;cal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Optional&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fib&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;If mypy is run over this code, it&amp;#8217;ll complain at the &lt;code&gt;print(fib(n))&lt;/code&gt; line saying &lt;code&gt;Argument 1 to "fib" has incompatible type "Optional[int]"; expected "int"&lt;/code&gt;. It&amp;#8217;s clear, at that point &lt;code&gt;n&lt;/code&gt; could be some integer or &lt;code&gt;None&lt;/code&gt;. This forces us to assure that &lt;code&gt;n&lt;/code&gt; is actually a number beforehand and thus avoiding some ill-defined call and a highly likely runtime error. Thus, the annotation error in the previous code is fixed by modifying in a verbose mode the &lt;code&gt;cal&lt;/code&gt; function as&amp;nbsp;follows&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;cal&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;Optional&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt; &lt;span class="o"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fib&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;n&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;&amp;quot;No number provided!&amp;quot;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;In my opinion, &lt;code&gt;mypy&lt;/code&gt; has been a great tool when working on a moderately sized project. Others of the like of Dropbox and Instagram have found it invaluable in their efforts to move from Python 2 to Python&amp;nbsp;3.&lt;/p&gt;
+&lt;h2&gt;Closing&amp;nbsp;remarks&lt;/h2&gt;
+&lt;p&gt;Go and explore other languages! It will most likely provide great insight into your preferred language and your own programming style. There is no need to be an expert, but already, the challenge of understanding a new language provides plenty of&amp;nbsp;teachings.&lt;/p&gt;
+&lt;p&gt;And regarding Python itself, use &lt;code&gt;black&lt;/code&gt; and annotate code, particularly the code that gets into production and is being produced by a&amp;nbsp;team.&lt;/p&gt;</content></entry><entry><title>Deeper into dataclasses</title><link href="https://ivergara.github.io/deeper-dataclasses.html" rel="alternate"></link><published>2019-08-05T12:20:00+02:00</published><updated>2019-08-05T12:20:00+02:00</updated><author><name>Ignacio Vergara Kausel</name></author><id>tag:ivergara.github.io,2019-08-05:/deeper-dataclasses.html</id><summary type="html">&lt;p&gt;Most articles cover the basics of &lt;code&gt;dataclasses&lt;/code&gt;, this is an attempt to cover some more advanced features of this&amp;nbsp;module.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Usually, examples using the &lt;code&gt;dataclasses&lt;/code&gt; module in Python are rather simple in the use of its features. That by itself is completely fine, but sometimes the implementation can be very tedious and cumbersome. However, the &lt;code&gt;dataclasses&lt;/code&gt; module offers ways to be smarter, which are rarely talked about. With this article, I want to change that. Thus, this article doesn&amp;#8217;t cover topics like when and how to use them. There is plenty of material on the Internet to learn about&amp;nbsp;that.&lt;/p&gt;
 &lt;p&gt;The following code represents a 3D point which can be added to another point and multiplied by a number element-wise. (Note: this makes this object more akin to a vector in my view). An extra feature is that it also supports iteration and unpacking via the &lt;code&gt;__iter__&lt;/code&gt; method, making the point and a number &lt;a href="https://en.wikipedia.org/wiki/Commutative_property"&gt;commutative&lt;/a&gt;.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Baseline solution&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;dataclasses&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;astuple&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dataclass&lt;/span&gt;
@@ -124,36 +239,36 @@
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th align="left"&gt;&lt;/th&gt;
-&lt;th align="center"&gt;&lt;span class="caps"&gt;SLOC&lt;/span&gt;&lt;/th&gt;
-&lt;th align="center"&gt;&lt;span class="caps"&gt;MI&lt;/span&gt;&lt;/th&gt;
-&lt;th align="center"&gt;Rank&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;&lt;span class="caps"&gt;SLOC&lt;/span&gt;&lt;/th&gt;
+&lt;th&gt;&lt;span class="caps"&gt;MI&lt;/span&gt;&lt;/th&gt;
+&lt;th&gt;Rank&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td align="left"&gt;Classic&lt;/td&gt;
-&lt;td align="center"&gt;24&lt;/td&gt;
-&lt;td align="center"&gt;53.41&lt;/td&gt;
-&lt;td align="center"&gt;A&lt;/td&gt;
+&lt;td&gt;Classic&lt;/td&gt;
+&lt;td&gt;24&lt;/td&gt;
+&lt;td&gt;53.41&lt;/td&gt;
+&lt;td&gt;A&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align="left"&gt;Baseline&lt;/td&gt;
-&lt;td align="center"&gt;21&lt;/td&gt;
-&lt;td align="center"&gt;54.28&lt;/td&gt;
-&lt;td align="center"&gt;A&lt;/td&gt;
+&lt;td&gt;Baseline&lt;/td&gt;
+&lt;td&gt;21&lt;/td&gt;
+&lt;td&gt;54.28&lt;/td&gt;
+&lt;td&gt;A&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align="left"&gt;Introspection&lt;/td&gt;
-&lt;td align="center"&gt;16&lt;/td&gt;
-&lt;td align="center"&gt;60.22&lt;/td&gt;
-&lt;td align="center"&gt;A&lt;/td&gt;
+&lt;td&gt;Introspection&lt;/td&gt;
+&lt;td&gt;16&lt;/td&gt;
+&lt;td&gt;60.22&lt;/td&gt;
+&lt;td&gt;A&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align="left"&gt;Iterator&lt;/td&gt;
-&lt;td align="center"&gt;17&lt;/td&gt;
-&lt;td align="center"&gt;100&lt;/td&gt;
-&lt;td align="center"&gt;A&lt;/td&gt;
+&lt;td&gt;Iterator&lt;/td&gt;
+&lt;td&gt;17&lt;/td&gt;
+&lt;td&gt;100&lt;/td&gt;
+&lt;td&gt;A&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -171,26 +286,26 @@
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
-&lt;th align="left"&gt;&lt;/th&gt;
-&lt;th align="center"&gt;mean (µs)&lt;/th&gt;
-&lt;th align="center"&gt;std&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;mean (µs)&lt;/th&gt;
+&lt;th&gt;std&lt;/th&gt;
 &lt;/tr&gt;
 &lt;/thead&gt;
 &lt;tbody&gt;
 &lt;tr&gt;
-&lt;td align="left"&gt;Baseline&lt;/td&gt;
-&lt;td align="center"&gt;33&lt;/td&gt;
-&lt;td align="center"&gt;5.18 µs&lt;/td&gt;
+&lt;td&gt;Baseline&lt;/td&gt;
+&lt;td&gt;33&lt;/td&gt;
+&lt;td&gt;5.18 µs&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align="left"&gt;Introspection&lt;/td&gt;
-&lt;td align="center"&gt;6.04&lt;/td&gt;
-&lt;td align="center"&gt;450 ns&lt;/td&gt;
+&lt;td&gt;Introspection&lt;/td&gt;
+&lt;td&gt;6.04&lt;/td&gt;
+&lt;td&gt;450 ns&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
-&lt;td align="left"&gt;Iterator&lt;/td&gt;
-&lt;td align="center"&gt;30.4&lt;/td&gt;
-&lt;td align="center"&gt;3.34 µs&lt;/td&gt;
+&lt;td&gt;Iterator&lt;/td&gt;
+&lt;td&gt;30.4&lt;/td&gt;
+&lt;td&gt;3.34 µs&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
